@@ -5,6 +5,6 @@ metadata:
 data:
   data1: "761"
   data2: "value"
-  data3: "1234"
+  data3: 
     key1=1
     key2=3
