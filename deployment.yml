@@ -6,8 +6,8 @@ metadata:
   labels:
     app: redis-deployment
   name: redis-deployment
-  namespace: mynamespace
-  spec:
+  namespace: default
+spec:
   progressDeadlineSeconds: 600
   replicas: 3
   revisionHistoryLimit: 10
@@ -19,15 +19,19 @@ metadata:
       maxSurge: 100%
       maxUnavailable: 25%
     type: RollingUpdate
-    template:
+  template:
     metadata:
       labels:
         app: redis-deployment
     spec:
       containers:
-      - image: redis
+      - name: redisdgess
+        image: redis
         imagePullPolicy: Never
-        name: redisdgess
+        resources:
+          limits:
+            memory: "128Mi"
         ports:
-          - containerPort: 7000
-            protocol: TCP
+        - name: myport
+          containerPort: 7000
+          protocol: TCP
