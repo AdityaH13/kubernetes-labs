@@ -5,7 +5,7 @@ metadata:
     deployment.kubernetes.io/revision: "1"
   labels:
     app: redis-deployment
-  name: redis-deployment
+  name: redisdeployment
   namespace: default
 spec:
   progressDeadlineSeconds: 600
@@ -13,12 +13,12 @@ spec:
   revisionHistoryLimit: 10
   selector:
     matchLabels:
-      app: redis-deployment
+     app: redis-deployment
   strategy:
+    type: RollingUpdate
     rollingUpdate:
       maxSurge: 100%
       maxUnavailable: 25%
-    type: RollingUpdate
   template:
     metadata:
       labels:
@@ -28,10 +28,7 @@ spec:
       - name: redisdgess
         image: redis
         imagePullPolicy: Never
-        resources:
-          limits:
-            memory: "128Mi"
         ports:
-        - name: myport
+        - name: redisport
           containerPort: 7000
           protocol: TCP
